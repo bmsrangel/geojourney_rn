@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
+    "android": "react-native run-android --active-arch-only",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "react": "18.1.0",
-    "react-native": "0.70.4"
+    "react-native": "0.70.4",
+    "react-native-geolocation-service": "^5.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
