@@ -3,7 +3,7 @@ import React, {useContext} from 'react';
 import {AppContext} from '../../AppContext';
 import {HomePage} from './pages/HomePage';
 import {RegisterPlacePage} from './pages/RegisterPlacePage';
-import pages from './homePages.json';
+import homePages from './homePages.json';
 
 const Stack = createNativeStackNavigator();
 
@@ -11,9 +11,15 @@ export const HomeNavigator = () => {
   const {appState} = useContext(AppContext);
 
   return (
-    <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen name={pages.home} component={HomePage} />
-      <Stack.Screen name={pages.register}>
+    <Stack.Navigator initialRouteName={homePages.home}>
+      <Stack.Screen
+        name={homePages.home}
+        component={HomePage}
+        options={{
+          headerTitle: 'Início',
+        }}
+      />
+      <Stack.Screen name={homePages.register}>
         {_ => (
           <RegisterPlacePage
             latitude={appState.coordinate.latitude}
