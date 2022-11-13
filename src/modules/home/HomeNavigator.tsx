@@ -16,7 +16,13 @@ export const HomeNavigator = () => {
           headerShown: false,
         }}
       />
-      <Stack.Screen name={homePages.register} component={RegisterPlacePage} />
+      <Stack.Screen
+        name={homePages.register}
+        component={RegisterPlacePage}
+        options={{
+          title: 'Novo local',
+        }}
+      />
     </Stack.Navigator>
   );
 };

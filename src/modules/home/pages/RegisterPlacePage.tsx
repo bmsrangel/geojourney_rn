@@ -15,10 +15,15 @@ export const RegisterPlacePage = ({
   const [placeName, setPlaceName] = useState<string>('');
   const {appState} = useContext(AppContext);
   const {latitude, longitude} = appState.coordinate;
+  const date = new Date();
 
   return (
     <SafeAreaView>
       <RegisterPlaceWrapper>
+        <DateTextInput
+          value={date.toLocaleDateString('pt-BR')}
+          editable={false}
+        />
         <NameTextInput
           placeholder="Nome do local"
           value={placeName}
@@ -36,6 +41,7 @@ export const RegisterPlacePage = ({
           label="Registrar"
           onPressed={() => {
             createPlace({
+              date,
               name: placeName,
               coordinate: {
                 latitude,
@@ -55,6 +61,11 @@ const RegisterPlaceWrapper = styled.View`
   width: 100%;
   height: 100%;
   padding: 16px;
+`;
+const DateTextInput = styled.TextInput`
+  border-bottom-width: 1px;
+  border-bottom-color: gray;
+  margin-bottom: 8px;
 `;
 
 const NameTextInput = styled.TextInput`
