@@ -18,7 +18,14 @@ export const PlacesListPage = () => {
       ) : (
         <FlatList<Place>
           data={placesList}
-          renderItem={({item}) => <Text>{item.name}</Text>}
+          renderItem={({item}) => (
+            <ListTileWrapper>
+              <ListTilePrefix>
+                {new Date(item.date).toLocaleDateString('pt-BR')}
+              </ListTilePrefix>
+              <ListTileTitle>{item.name}</ListTileTitle>
+            </ListTileWrapper>
+          )}
         />
       )}
     </ListWrapper>
@@ -30,4 +37,23 @@ const ListWrapper = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
+`;
+
+const ListTileWrapper = styled.View`
+  width: 100%;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ListTilePrefix = styled.Text`
+  width: 30%;
+  font-size: 12px;
+`;
+
+const ListTileTitle = styled.Text`
+  width: 70%;
+  font-size: 14px;
 `;
