@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
+import {primaryColor} from '../../../shared/constants/colors';
 
 type CustomMarkerComponentProps = {
   name: string;
@@ -7,7 +8,10 @@ type CustomMarkerComponentProps = {
 
 export const CustomMarkerComponent = ({name}: CustomMarkerComponentProps) => {
   return (
-    <CustomMarkerWrapper>
+    <CustomMarkerWrapper
+      style={{
+        backgroundColor: primaryColor,
+      }}>
       <MarkerText>{name}</MarkerText>
     </CustomMarkerWrapper>
   );
@@ -18,7 +22,6 @@ const CustomMarkerWrapper = styled.View`
   height: 30px;
   justify-content: center;
   align-items: center;
-  background-color: #ff0000;
   border-radius: 20px;
 `;
 
@@ -26,4 +29,5 @@ const MarkerText = styled.Text`
   font-size: 8px;
   font-weight: 500;
   text-align: center;
+  color: #fff;
 `;
