@@ -1,11 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import {ParamListBase} from '@react-navigation/native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import React, {useContext, useEffect, useState} from 'react';
 import {FlatList, Text} from 'react-native';
 import styled from 'styled-components/native';
 import {getPlaces} from '../../../shared/services/local_storage/places_service';
 import {Place} from '../../../shared/types/place';
+import {AppContext} from '../../../AppContext';
 
-export const PlacesListPage = () => {
+export const PlacesListPage = ({
+  navigation,
+}: NativeStackScreenProps<ParamListBase>) => {
   const [placesList, setPlacesList] = useState<Place[]>();
+  const {appState, setAppState} = useContext(AppContext);
 
   useEffect(() => {
     getPlaces().then(setPlacesList);
@@ -19,7 +25,14 @@ export const PlacesListPage = () => {
         <FlatList<Place>
           data={placesList}
           renderItem={({item}) => (
-            <ListTileWrapper>
+            <ListTileWrapper
+              onPress={() => {
+                setAppState({
+                  ...appState,
+                  coordinate: item.coordinate,
+                });
+                navigation.goBack();
+              }}>
               <ListTilePrefix>
                 {new Date(item.date).toLocaleDateString('pt-BR')}
               </ListTilePrefix>
@@ -39,7 +52,7 @@ const ListWrapper = styled.View`
   align-items: center;
 `;
 
-const ListTileWrapper = styled.View`
+const ListTileWrapper = styled.TouchableOpacity`
   width: 100%;
   height: 40px;
   display: flex;

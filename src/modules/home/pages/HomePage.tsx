@@ -31,6 +31,10 @@ export const HomePage = ({
   const [savedPlaces, setSavedPlaces] = useState<Place[]>([]);
 
   useEffect(() => {
+    console.log(appState.coordinate);
+  }, [appState.coordinate]);
+
+  useEffect(() => {
     getPlaces().then(setSavedPlaces);
   }, [savedPlaces]);
 
@@ -47,19 +51,20 @@ export const HomePage = ({
   ) : (
     <HomePageWrapper>
       <MapView
-        initialRegion={{
+        region={{
           ...appState.coordinate,
           latitudeDelta: 0.03,
           longitudeDelta: 0.03,
         }}
         style={styles.map}
-        showsMyLocationButton={false}
+        showsMyLocationButton={true}
         showsCompass={false}
         toolbarEnabled={false}
         showsUserLocation
         showsPointsOfInterest
         followsUserLocation
         onPoiClick={e => onMapClick(e.nativeEvent.coordinate)}
+        moveOnMarkerPress={true}
         onPress={e => onMapClick(e.nativeEvent.coordinate)}>
         {savedPlaces.map((place, index) => (
           <Marker coordinate={place.coordinate} key={index}>
