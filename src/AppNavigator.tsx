@@ -19,7 +19,7 @@ export const AppNavigator = () => {
           tabBarIcon: ({color, size}) => {
             return <Icon name="public" size={size} color={color} />;
           },
-          tabBarLabel: 'Início',
+          tabBarLabel: 'Mapa',
         }}
       />
       <Tab.Screen
@@ -27,10 +27,10 @@ export const AppNavigator = () => {
         component={PlacesListPage}
         options={{
           tabBarIcon: ({color, size}) => {
-            return <Icon name="list" size={size} color={color} />;
+            return <Icon name="favorite" size={size} color={color} />;
           },
-          tabBarLabel: 'Lista',
-          headerTitle: 'Locais',
+          tabBarLabel: 'Favoritos',
+          headerTitle: 'Locais Favoritos',
         }}
       />
     </Tab.Navigator>
