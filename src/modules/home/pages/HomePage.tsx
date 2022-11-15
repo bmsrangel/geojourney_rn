@@ -31,10 +31,6 @@ export const HomePage = ({
   const [savedPlaces, setSavedPlaces] = useState<Place[]>([]);
 
   useEffect(() => {
-    console.log(appState.coordinate);
-  }, [appState.coordinate]);
-
-  useEffect(() => {
     getPlaces().then(setSavedPlaces);
   }, [savedPlaces]);
 
