@@ -2,15 +2,14 @@ import React, {useContext, useEffect, useState} from 'react';
 import {StyleSheet} from 'react-native';
 import styled from 'styled-components/native';
 import {AppContext} from '../../../AppContext';
-import {ParamListBase} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import MapView, {Marker} from 'react-native-maps';
 import {LoaderComponent} from '../../../shared/components/LoaderComponent';
-import homePages from '../homePages.json';
 import {Place} from '../../../shared/types/place';
 import {getPlaces} from '../../../shared/services/local_storage/places_service';
 import {CustomMarkerComponent} from '../components/CustomMarkerComponent';
 import {Coord} from '../../../shared/types/coord';
+import {HomeStackParamsList} from './HomeStackParamsList';
 
 const HomePageWrapper = styled.View`
   width: 100%;
@@ -26,7 +25,7 @@ const styles = StyleSheet.create({
 
 export const HomePage = ({
   navigation,
-}: NativeStackScreenProps<ParamListBase>) => {
+}: NativeStackScreenProps<HomeStackParamsList>) => {
   const {appState, setAppState} = useContext(AppContext);
   const [savedPlaces, setSavedPlaces] = useState<Place[]>([]);
 
@@ -39,7 +38,9 @@ export const HomePage = ({
       ...appState,
       coordinate: coordinate,
     });
-    navigation.navigate(homePages.register);
+    navigation.navigate('register', {
+      coordinates: coordinate,
+    });
   };
 
   return appState.isLoading ? (
