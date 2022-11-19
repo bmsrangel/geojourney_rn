@@ -1,4 +1,4 @@
-import {ParamListBase} from '@react-navigation/native';
+import {ParamListBase, useIsFocused} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useContext, useEffect, useState} from 'react';
 import {Text} from 'react-native';
@@ -14,9 +14,14 @@ export const PlacesListPage = ({
   const [placesList, setPlacesList] = useState<Place[]>();
   const {appState, setAppState} = useContext(AppContext);
 
+  const isFocused = useIsFocused();
+
   useEffect(() => {
-    getPlaces().then(setPlacesList);
-  }, []);
+    if (isFocused) {
+      console.log('Effect');
+      getPlaces().then(setPlacesList);
+    }
+  }, [isFocused]);
 
   return (
     <ListWrapper>
