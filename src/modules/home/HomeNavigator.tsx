@@ -2,7 +2,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import {HomePage} from './pages/HomePage';
 import {RegisterPlacePage} from './pages/RegisterPlacePage';
-import {HomeStackParamsList} from './pages/HomeStackParamsList';
+import {HomeStackParamsList} from './HomeStackParamsList';
 
 const Stack = createNativeStackNavigator<HomeStackParamsList>();
 

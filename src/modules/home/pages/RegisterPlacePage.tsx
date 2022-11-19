@@ -4,7 +4,7 @@ import {SafeAreaView} from 'react-native';
 import styled from 'styled-components/native';
 import {FilledButtonComponent} from '../../../shared/components/FilledButtonComponent';
 import {createPlace} from '../../../shared/services/local_storage/places_service';
-import {HomeStackParamsList} from './HomeStackParamsList';
+import {HomeStackParamsList} from '../HomeStackParamsList';
 
 const maxNameLength = 10;
 
@@ -13,8 +13,6 @@ export const RegisterPlacePage = ({
   navigation,
 }: NativeStackScreenProps<HomeStackParamsList, 'register'>) => {
   const [placeName, setPlaceName] = useState<string>('');
-  // const {appState} = useContext(AppContext);
-  // const {latitude, longitude} = appState.coordinate;
   const {coordinates} = route.params;
   const {latitude, longitude} = coordinates;
   const date = new Date();

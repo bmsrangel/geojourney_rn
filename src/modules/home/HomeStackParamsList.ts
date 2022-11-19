@@ -1,4 +1,4 @@
-import {Coord} from '../../../shared/types/coord';
+import {Coord} from '../../shared/types/coord';
 
 export type HomeStackParamsList = {
   home: undefined;

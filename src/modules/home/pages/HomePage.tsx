@@ -9,7 +9,7 @@ import {Place} from '../../../shared/types/place';
 import {getPlaces} from '../../../shared/services/local_storage/places_service';
 import {CustomMarkerComponent} from '../components/CustomMarkerComponent';
 import {Coord} from '../../../shared/types/coord';
-import {HomeStackParamsList} from './HomeStackParamsList';
+import {HomeStackParamsList} from '../HomeStackParamsList';
 
 const HomePageWrapper = styled.View`
   width: 100%;
