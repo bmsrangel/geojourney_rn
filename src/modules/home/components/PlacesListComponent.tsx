@@ -39,9 +39,11 @@ const ListTileWrapper = styled.TouchableOpacity`
 const ListTilePrefix = styled.Text`
   width: 30%;
   font-size: 12px;
+  color: #9a9a9a;
 `;
 
 const ListTileTitle = styled.Text`
   width: 70%;
   font-size: 14px;
+  color: #9a9a9a;
 `;

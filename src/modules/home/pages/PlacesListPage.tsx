@@ -1,7 +1,6 @@
 import {ParamListBase, useIsFocused} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useContext, useEffect, useState} from 'react';
-import {Text} from 'react-native';
 import styled from 'styled-components/native';
 import {getPlaces} from '../../../shared/services/local_storage/places_service';
 import {Place} from '../../../shared/types/place';
@@ -18,7 +17,6 @@ export const PlacesListPage = ({
 
   useEffect(() => {
     if (isFocused) {
-      console.log('Effect');
       getPlaces().then(setPlacesList);
     }
   }, [isFocused]);
@@ -26,7 +24,7 @@ export const PlacesListPage = ({
   return (
     <ListWrapper>
       {placesList?.length === 0 ? (
-        <Text>Nenhum local adicionado</Text>
+        <NoPlacesText>Nenhum local adicionado</NoPlacesText>
       ) : (
         <PlacesListComponent
           places={placesList}
@@ -48,4 +46,8 @@ const ListWrapper = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
+`;
+
+const NoPlacesText = styled.Text`
+  color: #9a9a9a;
 `;
