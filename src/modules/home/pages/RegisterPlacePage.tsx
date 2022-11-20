@@ -30,6 +30,7 @@ export const RegisterPlacePage = ({
           onChangeText={setPlaceName}
           maxLength={maxNameLength}
           numberOfLines={1}
+          placeholderTextColor="#9a9a9a"
         />
         <WordsCounter>
           {placeName.length}/{maxNameLength}
@@ -66,18 +67,22 @@ const DateTextInput = styled.TextInput`
   border-bottom-width: 1px;
   border-bottom-color: gray;
   margin-bottom: 8px;
+  color: #9a9a9a;
 `;
 
 const NameTextInput = styled.TextInput`
   border-bottom-width: 1px;
   border-bottom-color: gray;
+  color: #9a9a9a;
 `;
 
 const CoordinateText = styled.Text`
   margin-bottom: 32px;
+  color: #9a9a9a;
 `;
 
 const WordsCounter = styled.Text`
   align-self: flex-end;
   margin-bottom: 16px;
+  color: #9a9a9a;
 `;
