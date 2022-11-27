@@ -1,7 +1,7 @@
+import {Box} from 'native-base';
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
-import styled from 'styled-components/native';
 import {Coord} from '../../../shared/types/coord';
 import {Place} from '../../../shared/types/place';
 import {CustomMarkerComponent} from './CustomMarkerComponent';
@@ -18,7 +18,7 @@ export const MapViewComponent = ({
   places,
 }: MapViewComponentProps) => {
   return (
-    <MapViewComponentWrapper>
+    <Box width="full" height="full">
       <MapView
         region={{
           ...region,
@@ -41,7 +41,7 @@ export const MapViewComponent = ({
           </Marker>
         ))}
       </MapView>
-    </MapViewComponentWrapper>
+    </Box>
   );
 };
 
@@ -51,8 +51,3 @@ const styles = StyleSheet.create({
     height: '100%',
   },
 });
-
-const MapViewComponentWrapper = styled.View`
-  width: 100%;
-  height: 100%;
-`;

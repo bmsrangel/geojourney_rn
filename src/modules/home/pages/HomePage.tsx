@@ -1,5 +1,4 @@
 import React, {useContext, useEffect, useState} from 'react';
-import styled from 'styled-components/native';
 import {AppContext} from '../../../AppContext';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {LoaderComponent} from '../../../shared/components/LoaderComponent';
@@ -8,11 +7,7 @@ import {getPlaces} from '../../../shared/services/local_storage/places_service';
 import {Coord} from '../../../shared/types/coord';
 import {HomeStackParamsList} from '../HomeStackParamsList';
 import {MapViewComponent} from '../components/MapViewComponent';
-
-const HomePageWrapper = styled.View`
-  width: 100%;
-  height: 100%;
-`;
+import {Box} from 'native-base';
 
 export const HomePage = ({
   navigation,
@@ -37,12 +32,12 @@ export const HomePage = ({
   return appState.isLoading ? (
     <LoaderComponent />
   ) : (
-    <HomePageWrapper>
+    <Box width="full" height="full">
       <MapViewComponent
         region={appState.coordinate}
         places={savedPlaces}
         onMapClick={onMapClick}
       />
-    </HomePageWrapper>
+    </Box>
   );
 };

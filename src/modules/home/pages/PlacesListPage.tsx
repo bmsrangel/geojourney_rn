@@ -1,11 +1,11 @@
 import {ParamListBase, useIsFocused} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useContext, useEffect, useState} from 'react';
-import styled from 'styled-components/native';
 import {getPlaces} from '../../../shared/services/local_storage/places_service';
 import {Place} from '../../../shared/types/place';
 import {AppContext} from '../../../AppContext';
 import {PlacesListComponent} from '../components/PlacesListComponent';
+import {Box, Text} from 'native-base';
 
 export const PlacesListPage = ({
   navigation,
@@ -22,9 +22,9 @@ export const PlacesListPage = ({
   }, [isFocused]);
 
   return (
-    <ListWrapper>
+    <Box padding="16px" flex="1" justifyContent="center" alignItems="center">
       {placesList?.length === 0 ? (
-        <NoPlacesText>Nenhum local adicionado</NoPlacesText>
+        <Text color="#9a9a9a">Nenhum local adicionado</Text>
       ) : (
         <PlacesListComponent
           places={placesList}
@@ -37,17 +37,6 @@ export const PlacesListPage = ({
           }}
         />
       )}
-    </ListWrapper>
+    </Box>
   );
 };
-
-const ListWrapper = styled.View`
-  padding: 16px;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;
-
-const NoPlacesText = styled.Text`
-  color: #9a9a9a;
-`;

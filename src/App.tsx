@@ -6,6 +6,7 @@ import {AppContext, AppState, initialAppState} from './AppContext';
 import {LoaderComponent} from './shared/components/LoaderComponent';
 import {NavigationContainer} from '@react-navigation/native';
 import {AppNavigator} from './AppNavigator';
+import {NativeBaseProvider} from 'native-base';
 
 export const App = () => {
   const [appState, setAppState] = useState<AppState>(initialAppState);
@@ -25,14 +26,20 @@ export const App = () => {
   }, []);
 
   if (appState.isLoading) {
-    return <LoaderComponent />;
+    return (
+      <NativeBaseProvider>
+        <LoaderComponent />
+      </NativeBaseProvider>
+    );
   }
 
   return (
-    <NavigationContainer>
-      <AppContext.Provider value={{appState, setAppState}}>
-        <AppNavigator />
-      </AppContext.Provider>
-    </NavigationContainer>
+    <NativeBaseProvider>
+      <NavigationContainer>
+        <AppContext.Provider value={{appState, setAppState}}>
+          <AppNavigator />
+        </AppContext.Provider>
+      </NavigationContainer>
+    </NativeBaseProvider>
   );
 };

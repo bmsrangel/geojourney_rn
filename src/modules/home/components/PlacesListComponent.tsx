@@ -1,6 +1,5 @@
 import React from 'react';
-import {FlatList} from 'react-native';
-import styled from 'styled-components/native';
+import {FlatList, Pressable, Text} from 'native-base';
 import {Place} from '../../../shared/types/place';
 
 type PlacesListComponentProps = {
@@ -16,34 +15,22 @@ export const PlacesListComponent = ({
     <FlatList<Place>
       data={places}
       renderItem={({item}) => (
-        <ListTileWrapper onPress={() => onPress(item)}>
-          <ListTilePrefix>
+        <Pressable
+          onPress={() => onPress(item)}
+          width="full"
+          height="40px"
+          display="flex"
+          flexDirection="row"
+          justifyContent="center"
+          alignItems="center">
+          <Text width="30%" fontSize="12px" color="#9a9a9a">
             {new Date(item.date).toLocaleDateString('pt-BR')}
-          </ListTilePrefix>
-          <ListTileTitle>{item.name}</ListTileTitle>
-        </ListTileWrapper>
+          </Text>
+          <Text width="70%" fontSize="14px" color="#9a9a9a">
+            {item.name}
+          </Text>
+        </Pressable>
       )}
     />
   );
 };
-
-const ListTileWrapper = styled.TouchableOpacity`
-  width: 100%;
-  height: 40px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ListTilePrefix = styled.Text`
-  width: 30%;
-  font-size: 12px;
-  color: #9a9a9a;
-`;
-
-const ListTileTitle = styled.Text`
-  width: 70%;
-  font-size: 14px;
-  color: #9a9a9a;
-`;

@@ -1,7 +1,7 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {Box, Input, Text} from 'native-base';
 import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native';
-import styled from 'styled-components/native';
 import {FilledButtonComponent} from '../../../shared/components/FilledButtonComponent';
 import {createPlace} from '../../../shared/services/local_storage/places_service';
 import {HomeStackParamsList} from '../HomeStackParamsList';
@@ -19,25 +19,32 @@ export const RegisterPlacePage = ({
 
   return (
     <SafeAreaView>
-      <RegisterPlaceWrapper>
-        <DateTextInput
+      <Box padding="16px" width="full" height="full" display="flex">
+        <Input
+          borderColor="gray.500"
+          color="#9a9a9a"
+          marginBottom="8px"
+          variant="underlined"
           value={date.toLocaleDateString('pt-BR')}
           editable={false}
         />
-        <NameTextInput
+        <Input
           placeholder="Nome do local"
           value={placeName}
           onChangeText={setPlaceName}
           maxLength={maxNameLength}
           numberOfLines={1}
           placeholderTextColor="#9a9a9a"
+          variant="underlined"
+          borderColor="gray.500"
+          focusOutlineColor="gray.500"
         />
-        <WordsCounter>
+        <Text alignSelf="flex-end" marginBottom="16px" color="#9a9a9a">
           {placeName.length}/{maxNameLength}
-        </WordsCounter>
-        <CoordinateText>
+        </Text>
+        <Text marginBottom="32px" color="#9a9a9a">
           Coordenada: {latitude}°, {longitude}°
-        </CoordinateText>
+        </Text>
         <FilledButtonComponent
           label="Registrar"
           onPressed={() => {
@@ -52,37 +59,7 @@ export const RegisterPlacePage = ({
             navigation.goBack();
           }}
         />
-      </RegisterPlaceWrapper>
+      </Box>
     </SafeAreaView>
   );
 };
-
-const RegisterPlaceWrapper = styled.View`
-  display: flex;
-  width: 100%;
-  height: 100%;
-  padding: 16px;
-`;
-const DateTextInput = styled.TextInput`
-  border-bottom-width: 1px;
-  border-bottom-color: gray;
-  margin-bottom: 8px;
-  color: #9a9a9a;
-`;
-
-const NameTextInput = styled.TextInput`
-  border-bottom-width: 1px;
-  border-bottom-color: gray;
-  color: #9a9a9a;
-`;
-
-const CoordinateText = styled.Text`
-  margin-bottom: 32px;
-  color: #9a9a9a;
-`;
-
-const WordsCounter = styled.Text`
-  align-self: flex-end;
-  margin-bottom: 16px;
-  color: #9a9a9a;
-`;
