@@ -5,7 +5,6 @@ import {PlacesListPage} from './modules/home/pages/PlacesListPage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import appPages from './appPages.json';
-import {primaryColor} from './shared/constants/colors';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,7 +16,6 @@ export const AppNavigator = () => {
         component={HomeNavigator}
         options={{
           headerShown: false,
-          tabBarActiveTintColor: primaryColor,
           tabBarIcon: ({color, size}) => {
             return <Icon name="public" size={size} color={color} />;
           },
@@ -33,7 +31,6 @@ export const AppNavigator = () => {
           },
           tabBarLabel: 'Favoritos',
           headerTitle: 'Locais Favoritos',
-          tabBarActiveTintColor: primaryColor,
         }}
       />
     </Tab.Navigator>

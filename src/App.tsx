@@ -4,9 +4,14 @@ import {getFineLocationPermission} from './shared/services/permission/get_fine_l
 import {getCoords} from './shared/services/geolocation/get_coords.ts';
 import {AppContext, AppState, initialAppState} from './AppContext';
 import {LoaderComponent} from './shared/components/LoaderComponent';
-import {NavigationContainer} from '@react-navigation/native';
+import {
+  DarkTheme,
+  DefaultTheme,
+  NavigationContainer,
+} from '@react-navigation/native';
 import {AppNavigator} from './AppNavigator';
 import {NativeBaseProvider} from 'native-base';
+import {primaryColor} from './shared/constants/colors';
 
 export const App = () => {
   const [appState, setAppState] = useState<AppState>(initialAppState);
@@ -16,6 +21,7 @@ export const App = () => {
         getCoords().then(result => {
           if (result !== undefined) {
             setAppState({
+              ...appState,
               isLoading: false,
               coordinate: result,
             });
@@ -24,6 +30,18 @@ export const App = () => {
       }
     });
   }, []);
+
+  const baseNavigationTheme = appState.isDarkThemeSelected
+    ? DarkTheme
+    : DefaultTheme;
+
+  const navigationTheme = {
+    ...baseNavigationTheme,
+    colors: {
+      ...baseNavigationTheme.colors,
+      primary: primaryColor,
+    },
+  };
 
   if (appState.isLoading) {
     return (
@@ -35,7 +53,7 @@ export const App = () => {
 
   return (
     <NativeBaseProvider>
-      <NavigationContainer>
+      <NavigationContainer theme={navigationTheme}>
         <AppContext.Provider value={{appState, setAppState}}>
           <AppNavigator />
         </AppContext.Provider>
