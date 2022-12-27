@@ -1,25 +1,28 @@
 import {ParamListBase, useIsFocused} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {getPlaces} from '../../../shared/services/local_storage/places_service';
 import {Place} from '../../../shared/types/place';
-import {AppContext} from '../../../AppContext';
 import {PlacesListComponent} from '../components/PlacesListComponent';
 import {Box, Text} from 'native-base';
+import {appActions, useAppDispatch, useAppSelector} from '../../../appStore';
+import {placesListActions} from '../slices/placesListSlice';
 
 export const PlacesListPage = ({
   navigation,
 }: NativeStackScreenProps<ParamListBase>) => {
-  const [placesList, setPlacesList] = useState<Place[]>();
-  const {appState, setAppState} = useContext(AppContext);
+  const placesList = useAppSelector(state => state.placesList.places);
+  const dispatch = useAppDispatch();
 
   const isFocused = useIsFocused();
 
   useEffect(() => {
     if (isFocused) {
-      getPlaces().then(setPlacesList);
+      getPlaces().then(places =>
+        dispatch(placesListActions.setPlacesList({places})),
+      );
     }
-  }, [isFocused]);
+  }, [isFocused, dispatch]);
 
   return (
     <Box padding="16px" flex="1" justifyContent="center" alignItems="center">
@@ -29,10 +32,7 @@ export const PlacesListPage = ({
         <PlacesListComponent
           places={placesList}
           onPress={(place: Place) => {
-            setAppState({
-              ...appState,
-              coordinate: place.coordinate,
-            });
+            dispatch(appActions.setCoordinate({coordinate: place.coordinate}));
             navigation.goBack();
           }}
         />
