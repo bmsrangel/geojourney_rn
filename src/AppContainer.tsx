@@ -12,6 +12,7 @@ import {AppNavigator} from './AppNavigator';
 import {NativeBaseProvider} from 'native-base';
 import {primaryColor} from './shared/constants/colors';
 import {appActions, useAppDispatch, useAppSelector} from './appStore';
+import {gql, useQuery} from './shared/utils/apolloClient';
 
 export const AppContainer = () => {
   const isLoading = useAppSelector(state => state.app.isLoading);
@@ -20,6 +21,29 @@ export const AppContainer = () => {
   );
 
   const dispatch = useAppDispatch();
+
+  const {loading, error, data} = useQuery(
+    gql`
+      query Login($email: String!, $password: String!) {
+        users(
+          where: {_and: {email: {_eq: $email}, password: {_eq: $password}}}
+        ) {
+          id
+          first_name
+          last_name
+          email
+        }
+      }
+    `,
+    {
+      variables: {
+        email: 'jdoe@email.com',
+        password: '123123',
+      },
+    },
+  );
+
+  console.log(data);
 
   useEffect(() => {
     getFineLocationPermission(PermissionsAndroid).then(isPermissionGranted => {
