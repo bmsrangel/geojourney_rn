@@ -2,9 +2,12 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Box, Input, Text} from 'native-base';
 import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native';
+import {useAppDispatch, useAppSelector} from '../../../appStore';
 import {FilledButtonComponent} from '../../../shared/components/FilledButtonComponent';
-import {createPlace} from '../../../shared/services/local_storage/places_service';
+import {useMutation} from '../../../shared/utils/apolloClient';
 import {HomeStackParamsList} from '../HomeStackParamsList';
+import {registerFavoritePlace} from '../queries/registerFavoritePlace';
+import {placesListActions} from '../slices/placesListSlice';
 
 const maxNameLength = 10;
 
@@ -16,6 +19,13 @@ export const RegisterPlacePage = ({
   const {coordinates} = route.params;
   const {latitude, longitude} = coordinates;
   const date = new Date();
+
+  const user = useAppSelector(state => state.user.user);
+  const favoritePlaces = useAppSelector(state => state.placesList.places);
+
+  const dispatch = useAppDispatch();
+
+  const [registerPlace] = useMutation(registerFavoritePlace);
 
   return (
     <SafeAreaView>
@@ -48,13 +58,23 @@ export const RegisterPlacePage = ({
         <FilledButtonComponent
           label="Registrar"
           onPressed={() => {
-            createPlace({
-              date,
+            const variables = {
               name: placeName,
+              date: date.toISOString(),
               coordinate: {
                 latitude,
                 longitude,
               },
+              userId: user.id,
+            };
+            registerPlace({
+              variables,
+            }).then(result => {
+              const newPlace = result.data.insert_favorite_places_one;
+              const updatedPlacesList = [...favoritePlaces, newPlace];
+              dispatch(
+                placesListActions.setPlacesList({places: updatedPlacesList}),
+              );
             });
             navigation.goBack();
           }}

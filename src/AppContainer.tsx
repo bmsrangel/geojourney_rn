@@ -12,7 +12,13 @@ import {AppNavigator} from './AppNavigator';
 import {NativeBaseProvider} from 'native-base';
 import {primaryColor} from './shared/constants/colors';
 import {appActions, useAppDispatch, useAppSelector} from './appStore';
-import {gql, useQuery} from './shared/utils/apolloClient';
+import {useLazyQuery} from './shared/utils/apolloClient';
+import {userDecoder} from './shared/decoders/userDecoder';
+import {userActions} from './modules/home/slices/userSlice';
+import {loginQuery} from './modules/home/queries/loginQuery';
+import {getPlacesByUserId} from './modules/home/queries/getPlacesByUserId';
+import {placesDecoder} from './shared/decoders/placesDecoder';
+import {placesListActions} from './modules/home/slices/placesListSlice';
 
 export const AppContainer = () => {
   const isLoading = useAppSelector(state => state.app.isLoading);
@@ -22,40 +28,36 @@ export const AppContainer = () => {
 
   const dispatch = useAppDispatch();
 
-  const {loading, error, data} = useQuery(
-    gql`
-      query Login($email: String!, $password: String!) {
-        users(
-          where: {_and: {email: {_eq: $email}, password: {_eq: $password}}}
-        ) {
-          id
-          first_name
-          last_name
-          email
-        }
-      }
-    `,
-    {
-      variables: {
-        email: 'jdoe@email.com',
-        password: '123123',
-      },
-    },
-  );
-
-  console.log(data);
+  const [getUserData, {loading}] = useLazyQuery(loginQuery);
+  const [getFavoritePlaces] = useLazyQuery(getPlacesByUserId);
 
   useEffect(() => {
-    getFineLocationPermission(PermissionsAndroid).then(isPermissionGranted => {
-      if (isPermissionGranted) {
-        getCoords().then(result => {
-          if (result !== undefined) {
-            dispatch(appActions.setCoordinate({coordinate: result}));
-            dispatch(appActions.setIsLoading({isLoading: false}));
+    getFineLocationPermission(PermissionsAndroid).then(
+      async isPermissionGranted => {
+        if (isPermissionGranted) {
+          const {data} = await getUserData({
+            variables: {
+              email: 'brangel@email.com',
+              password: '123123',
+            },
+          });
+          const user = userDecoder(data);
+          dispatch(userActions.setUser({user}));
+          const placesResponse = await getFavoritePlaces({
+            variables: {
+              userId: user.id,
+            },
+          });
+          const places = placesDecoder(placesResponse.data);
+          dispatch(placesListActions.setPlacesList({places}));
+          const coordinate = await getCoords();
+          if (coordinate !== undefined) {
+            dispatch(appActions.setCoordinate({coordinate}));
+            dispatch(appActions.setIsLoading({isLoading: loading}));
           }
-        });
-      }
-    });
+        }
+      },
+    );
   }, []);
 
   const baseNavigationTheme = isDarkThemeSelected ? DarkTheme : DefaultTheme;

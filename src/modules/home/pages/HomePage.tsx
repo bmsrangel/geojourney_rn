@@ -1,13 +1,11 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {LoaderComponent} from '../../../shared/components/LoaderComponent';
-import {getPlaces} from '../../../shared/services/local_storage/places_service';
 import {Coord} from '../../../shared/types/coord';
 import {HomeStackParamsList} from '../HomeStackParamsList';
 import {MapViewComponent} from '../components/MapViewComponent';
 import {Box} from 'native-base';
 import {appActions, useAppDispatch, useAppSelector} from '../../../appStore';
-import {placesListActions} from '../slices/placesListSlice';
 
 export const HomePage = ({
   navigation,
@@ -18,13 +16,13 @@ export const HomePage = ({
 
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    getPlaces().then(places =>
-      dispatch(placesListActions.setPlacesList({places})),
-    );
-  }, [savedPlaces, dispatch]);
+  // useEffect(() => {
+  //   getPlaces().then(places =>
+  //     dispatch(placesListActions.setPlacesList({places})),
+  //   );
+  // }, [savedPlaces, dispatch]);
 
-  const onMapClick = (coordinate: Coord) => {
+  const onMapClick = async (coordinate: Coord) => {
     dispatch(appActions.setCoordinate({coordinate}));
     navigation.navigate('register', {
       coordinates: coordinate,
