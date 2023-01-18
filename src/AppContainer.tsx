@@ -9,8 +9,8 @@ import {
   NavigationContainer,
 } from '@react-navigation/native';
 import {AppNavigator} from './AppNavigator';
-import {NativeBaseProvider} from 'native-base';
-import {primaryColor} from './shared/constants/colors';
+import {extendTheme, NativeBaseProvider} from 'native-base';
+import {primaryColor, primaryColorDark} from './shared/constants/colors';
 import {appActions, useAppDispatch, useAppSelector} from './appStore';
 import {useLazyQuery} from './shared/utils/apolloClient';
 import {userDecoder} from './shared/decoders/userDecoder';
@@ -66,20 +66,26 @@ export const AppContainer = () => {
     ...baseNavigationTheme,
     colors: {
       ...baseNavigationTheme.colors,
-      primary: primaryColor,
+      primary: isDarkThemeSelected ? primaryColorDark : primaryColor,
     },
   };
 
+  const nativeBaseTheme = extendTheme({
+    config: {
+      initialColorMode: isDarkThemeSelected ? 'dark' : 'light',
+    },
+  });
+
   if (isLoading) {
     return (
-      <NativeBaseProvider>
+      <NativeBaseProvider theme={nativeBaseTheme}>
         <LoaderComponent />
       </NativeBaseProvider>
     );
   }
 
   return (
-    <NativeBaseProvider>
+    <NativeBaseProvider theme={nativeBaseTheme}>
       <NavigationContainer theme={navigationTheme}>
         <AppNavigator />
       </NavigationContainer>

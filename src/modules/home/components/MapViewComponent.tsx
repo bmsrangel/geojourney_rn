@@ -10,12 +10,14 @@ type MapViewComponentProps = {
   region: Coord;
   onMapClick: (coordinate: Coord) => void;
   places: Place[];
+  mapStyle?: any;
 };
 
 export const MapViewComponent = ({
   region,
   onMapClick,
   places,
+  mapStyle,
 }: MapViewComponentProps) => {
   return (
     <Box width="full" height="full">
@@ -26,6 +28,7 @@ export const MapViewComponent = ({
           longitudeDelta: 0.03,
         }}
         style={styles.map}
+        customMapStyle={mapStyle}
         showsMyLocationButton={true}
         showsCompass={false}
         toolbarEnabled={false}

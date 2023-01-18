@@ -6,6 +6,8 @@ import {HomeStackParamsList} from '../HomeStackParamsList';
 import {MapViewComponent} from '../components/MapViewComponent';
 import {Box} from 'native-base';
 import {appActions, useAppDispatch, useAppSelector} from '../../../appStore';
+import mapStyleDark from '../maps/mapStyleDark.json';
+import mapStyleLight from '../maps/mapStyleLight.json';
 
 export const HomePage = ({
   navigation,
@@ -13,14 +15,13 @@ export const HomePage = ({
   const isLoading = useAppSelector(state => state.app.isLoading);
   const appCoordinate = useAppSelector(state => state.app.coordinate);
   const savedPlaces = useAppSelector(state => state.placesList.places);
+  const isDarkThemeSelected = useAppSelector(
+    state => state.app.isDarkThemeSelected,
+  );
 
   const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   getPlaces().then(places =>
-  //     dispatch(placesListActions.setPlacesList({places})),
-  //   );
-  // }, [savedPlaces, dispatch]);
+  const mapStyle = isDarkThemeSelected ? mapStyleDark : mapStyleLight;
 
   const onMapClick = async (coordinate: Coord) => {
     dispatch(appActions.setCoordinate({coordinate}));
@@ -37,6 +38,7 @@ export const HomePage = ({
         region={appCoordinate}
         places={savedPlaces}
         onMapClick={onMapClick}
+        mapStyle={mapStyle}
       />
     </Box>
   );
