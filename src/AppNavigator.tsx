@@ -6,10 +6,21 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import appPages from './appPages.json';
 import {ProfilePage} from './modules/home/pages/ProfilePage';
+import {Box, useColorMode} from 'native-base';
+import {Pressable} from 'react-native';
+import {appActions, useAppDispatch, useAppSelector} from './appStore';
 
 const Tab = createBottomTabNavigator();
 
 export const AppNavigator = () => {
+  const isDarkThemeSelected = useAppSelector(
+    state => state.app.isDarkThemeSelected,
+  );
+
+  const dispatch = useAppDispatch();
+
+  const {toggleColorMode} = useColorMode();
+
   return (
     <Tab.Navigator initialRouteName={appPages.map}>
       <Tab.Screen
@@ -43,6 +54,25 @@ export const AppNavigator = () => {
           },
           tabBarLabel: 'Perfil',
           headerTitle: 'Perfil',
+          headerRight: () => (
+            <Box paddingRight="16px">
+              <Pressable
+                onPress={() => {
+                  toggleColorMode();
+                  dispatch(
+                    appActions.setDarkMode({
+                      isDatkThemeSelected: !isDarkThemeSelected,
+                    }),
+                  );
+                }}>
+                <Icon
+                  name={isDarkThemeSelected ? 'brightness-5' : 'bedtime'}
+                  color={isDarkThemeSelected ? '#e5e5e7' : 'black'}
+                  size={18}
+                />
+              </Pressable>
+            </Box>
+          ),
         }}
       />
     </Tab.Navigator>

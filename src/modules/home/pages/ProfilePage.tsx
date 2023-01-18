@@ -1,16 +1,9 @@
-import {Box, Row, Switch, Text, useColorMode} from 'native-base';
+import {Box, Text} from 'native-base';
 import React from 'react';
-import {appActions, useAppDispatch, useAppSelector} from '../../../appStore';
+import {useAppSelector} from '../../../appStore';
 
 export const ProfilePage = () => {
-  const isDarkThemeSelected = useAppSelector(
-    state => state.app.isDarkThemeSelected,
-  );
   const user = useAppSelector(state => state.user.user);
-
-  const dispatch = useAppDispatch();
-
-  const {toggleColorMode} = useColorMode();
 
   return (
     <Box padding="16px">
@@ -24,17 +17,6 @@ export const ProfilePage = () => {
         }}>
         {user.email}
       </Text>
-      <Row>
-        <Text>Tema Escuro</Text>
-        <Switch
-          size="sm"
-          isChecked={isDarkThemeSelected}
-          onValueChange={value => {
-            toggleColorMode();
-            dispatch(appActions.setDarkMode({isDatkThemeSelected: value}));
-          }}
-        />
-      </Row>
     </Box>
   );
 };
