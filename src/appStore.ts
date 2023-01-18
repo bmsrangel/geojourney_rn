@@ -9,12 +9,14 @@ import {
   PAUSE,
   PERSIST,
   persistReducer,
+  persistStore,
   PURGE,
   REGISTER,
   REHYDRATE,
 } from 'redux-persist';
 
 export {Provider as AppStoreProvider} from 'react-redux';
+export {PersistGate as AppStorePersistGate} from 'redux-persist/integration/react';
 export {appActions} from './appSlice';
 
 const persistConfig = {
@@ -51,6 +53,8 @@ export const appStore = configureStore({
       },
     }),
 });
+
+export const appPersistor = persistStore(appStore);
 
 export type AppStore = ReturnType<typeof appStore.getState>;
 
