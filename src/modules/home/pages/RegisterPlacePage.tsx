@@ -24,7 +24,6 @@ export const RegisterPlacePage = ({
   const date = new Date();
 
   const user = useAppSelector(state => state.user.user);
-  const favoritePlaces = useAppSelector(state => state.placesList.places);
 
   const dispatch = useAppDispatch();
 
@@ -84,10 +83,7 @@ export const RegisterPlacePage = ({
                 variables,
               }).then(result => {
                 const newPlace = result.data.insert_favorite_places_one;
-                const updatedPlacesList = [...favoritePlaces, newPlace];
-                dispatch(
-                  placesListActions.setPlacesList({places: updatedPlacesList}),
-                );
+                dispatch(placesListActions.addPlaceToList({newPlace}));
               });
               navigation.goBack();
             }

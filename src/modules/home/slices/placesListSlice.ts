@@ -12,6 +12,9 @@ export const placesListSlice = createSlice({
     setPlacesList(state, action: PayloadAction<{places: Place[]}>) {
       state.places = action.payload.places;
     },
+    addPlaceToList(state, action: PayloadAction<{newPlace: Place}>) {
+      state.places = [...state.places, action.payload.newPlace];
+    },
   },
 });
 
