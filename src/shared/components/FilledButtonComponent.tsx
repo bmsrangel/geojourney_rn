@@ -1,6 +1,7 @@
 import {Box, Pressable, Text} from 'native-base';
 import React from 'react';
-import {primaryColor} from '../constants/colors';
+import {useAppSelector} from '../../appStore';
+import {primaryColor, primaryColorDark} from '../constants/colors';
 
 export type FilledButtonComponentProps = {
   label: string;
@@ -11,10 +12,14 @@ export const FilledButtonComponent = ({
   label,
   onPressed,
 }: FilledButtonComponentProps) => {
+  const isDarkThemeSelected = useAppSelector(
+    state => state.app.isDarkThemeSelected,
+  );
+
   return (
     <Pressable onPress={onPressed}>
       <Box
-        backgroundColor={primaryColor}
+        backgroundColor={isDarkThemeSelected ? primaryColorDark : primaryColor}
         width="40%"
         height="40px"
         borderRadius="5px"
