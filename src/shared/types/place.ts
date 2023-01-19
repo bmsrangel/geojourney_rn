@@ -6,4 +6,5 @@ export type Place = {
   name: string;
   description: string;
   coordinate: Coord;
+  imageUrl: string;
 };

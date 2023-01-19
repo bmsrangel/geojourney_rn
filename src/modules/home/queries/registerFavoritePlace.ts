@@ -7,6 +7,7 @@ export const registerFavoritePlace = gql`
     $description: String
     $coordinate: json
     $userId: uuid!
+    $imageUrl: String
   ) {
     insert_favorite_places_one(
       object: {
@@ -15,6 +16,7 @@ export const registerFavoritePlace = gql`
         description: $description
         coordinate: $coordinate
         user_id: $userId
+        image_url: $imageUrl
       }
     ) {
       id
@@ -22,6 +24,7 @@ export const registerFavoritePlace = gql`
       name
       description
       coordinate
+      image_url
     }
   }
 `;

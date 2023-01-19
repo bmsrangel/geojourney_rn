@@ -8,6 +8,7 @@ export const getPlacesByUserId = gql`
       name
       description
       coordinate
+      image_url
     }
   }
 `;
