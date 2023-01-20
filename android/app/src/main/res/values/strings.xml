@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GeoJourney</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">fI3oOPP7QZ2A7YZldlsMLIARsvaWErWZ5WvTX</string>
 </resources>
