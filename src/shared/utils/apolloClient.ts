@@ -8,7 +8,8 @@ export {
 } from '@apollo/client';
 
 const isDev = process.env.NODE_ENV;
-const developmentUrl = 'http://10.0.2.2:8080/v1/graphql';
+const developmentUrl = 'http://192.168.175.56:8080/v1/graphql';
+// const developmentUrl = 'http://10.0.2.2:8080/v1/graphql';
 const productionUrl = 'https://right-mustang-74.hasura.app/v1/graphql';
 
 export const apolloClient = new ApolloClient({

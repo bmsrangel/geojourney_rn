@@ -20,6 +20,8 @@ import {getPlacesByUserId} from './modules/home/queries/getPlacesByUserId';
 import {placesDecoder} from './shared/decoders/placesDecoder';
 import {placesListActions} from './modules/home/slices/placesListSlice';
 
+import messaging from '@react-native-firebase/messaging';
+
 export const AppContainer = () => {
   const isLoading = useAppSelector(state => state.app.isLoading);
   const isDarkThemeSelected = useAppSelector(
@@ -32,6 +34,7 @@ export const AppContainer = () => {
   const [getFavoritePlaces] = useLazyQuery(getPlacesByUserId);
 
   useEffect(() => {
+    messaging().getToken().then(console.log);
     getFineLocationPermission(PermissionsAndroid).then(
       async isPermissionGranted => {
         if (isPermissionGranted) {

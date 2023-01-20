@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1085785295022",
+    "project_id": "geojourney-c225b",
+    "storage_bucket": "geojourney-c225b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1085785295022:android:e6415a2db0090d3072053f",
+        "android_client_info": {
+          "package_name": "com.geojourney"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1085785295022-ucug6ltfuu8p3rrucfp1s71qs9pjtsdu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApJgN43QMogxtOskaBnDE-ObCBES2Spyo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1085785295022-ucug6ltfuu8p3rrucfp1s71qs9pjtsdu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
